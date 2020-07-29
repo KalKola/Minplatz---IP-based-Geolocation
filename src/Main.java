@@ -4,11 +4,26 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import org.json.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println(getLocation(""));
+        JSONObject jsObj = null;
+        String loc = "";
+        String map = "";
+
+        loc = getLocation("");
+        jsObj = new JSONObject(loc);
+
+        System.out.println(
+                  "\nIP Address: " + jsObj.getString("ip")
+                + "\nCity: " + jsObj.getString("city")
+                + "\nCountry: " + jsObj.getString("country"));
+
+        map = "https://www.google.com/maps/?q=" + jsObj.getString("loc");
+        System.out.println(map);
+
     }
 
     public static String getLocation(String ip) {
